@@ -50,11 +50,11 @@ Osoba chcąca zakupić produkt na aukcji.
 
 [Sprzedający](#ac1):
 * [UC1](#uc1): Wystawienie produktu na aukcję
-* ...
+* [UC4](#uc4): Przekazanie produktu
 
-[Kupujący](#ac2)
-* ...
-
+[Kupujący](#ac2):
+* [UC2](#uc2): Złożenie oferty
+* [UC3](#uc3): Dokonanie płatności za wygrany produkt
 ---
 <a id="uc1"></a>
 ### UC1: Wystawienie produktu na aukcję
@@ -77,19 +77,62 @@ Osoba chcąca zakupić produkt na aukcji.
 ---
 
 <a id="uc2"></a>
-### UC2: ...
+### UC2: Złożenie oferty
 
-**Aktorzy:** [Sprzedający](#ac1), [Kupujący](#ac2), ...
+**Aktorzy:** [Sprzedający](#ac1), [Kupujący](#ac2)
 
 **Scenariusz główny:**
-1. ...
+1. [Kupujący](#ac2) wybiera produkt i zgłasza chęć złożenia oferty.
+2. System wyświetla aktualnie najwyższą ofertę oraz minimalną kwotę przebicia  zgodnie z BR1.
+3. [Kupujący](#ac2) podaje kwotę wyższą niż aktualna najwyższa oferta.
+4. [Sprzedający](#ac1) weryfikuje poprawność kwoty zgodnie z BR1.
+5. [Sprzedający](#ac1) informuje o pomyślnym złożeniu oferty i aktualizuje najwyższą ofertę.
 
 **Scenariusze alternatywne:** 
 
-1.A. ...
-* 4.A.1. ...
+4.A. Podano kwotę mniejszą niż aktualnie najwyższa oferta lub kwotę niepełną.
+* 4.A.1. System informuje o błędnej kwocie i prosi o poprawienie.
+* 4.A.2. [Sprzedający](#ac1) prosi [Kupującego](#ac2) o podanie poprawnej kwoty
+* 4.A.3. Przejdź do kroku 3.
 
 ---
+
+<a id="uc3"></a>
+### UC3: Dokonanie płatności za wygrany produkt
+
+**Aktorzy:** [Sprzedający](#ac1), [Kupujący](#ac2)
+
+**Scenariusz główny:**
+1. [Kupujący](#ac2) wybiera wygrany produkt, za który chce dokonać płatności.
+2. System wyświetla kwotę do zapłaty oraz dostępne opcje płatności.
+3. [Kupujący](#ac2) wybiera opcję płatności i potwierdza chęć zapłaty.
+4. System weryfikuje poprawność płatności oraz dostępność środków.
+5. [Sprzedający](#ac1) potwierdza dokonanie płatności i informuje o pomyślnym zakończeniu transakcji.
+
+**Scenariusze alternatywne:**
+
+4.A. Płatność nie powiodła się (np. brak środków).
+* 4.A.1. System informuje o nieudanej płatności i prosi o wybór innej metody.
+* 4.A.2. Przejdź do kroku 2.
+
+<a id="uc4"></a>
+### UC4: Przekazanie produktu
+
+**Aktorzy:** [Sprzedający](#ac1), [Kupujący](#ac2)
+
+**Scenariusz główny:**
+1. [Sprzedający](#ac1) potwierdza w systemie gotowość do przekazania produktu.
+2. System wysyła powiadomienie do [Kupującego](#ac2) o możliwości odbioru produktu.
+3. [Kupujący](#ac2) potwierdza odbiór produktu w systemie.
+4. System finalizuje proces przekazania i oznacza transakcję jako zakończoną.
+
+**Scenariusze alternatywne:**
+
+2.A. Kupujący nie odbiera produktu w wyznaczonym terminie.
+
+* 2.A.1. System wysyła przypomnienie o odbiorze.
+* 2.A.2. Jeśli produkt nie zostanie odebrany w ciągu dodatkowego okresu, system oznacza transakcję jako nieudaną i informuje [Sprzedającego](#ac1).
+
 
 ## Obiewkty biznesowe (inaczje obiekty dziedzinowe lub informatycjne)
 
@@ -112,12 +155,14 @@ Złożenie oferty wymaga zaproponowania kwoty wyższej niż aktualnie oferowana 
 <a id="br2"></a>
 ### BR2: Rozstrzygnięcie aukcji
 
-Aukcję wygrywa ten z [Kupujący](#ac2)ch, który w momencie jej zakończenia (upłynięcia czasu) złożył najwyższą ofertę.
+Aukcję wygrywa ten z [Kupujących](#ac2), który w momencie jej zakończenia (upłynięcia czasu) złożył najwyższą ofertę.
 
 ## Macierz CRUDL
 
 
-| Przypadek użycia                                  | Aukcja | Produkt | ... |
-| ------------------------------------------------- | ------ | ------- | --- |
-| UC1: Wystawienia produktu na aukcję               |    C   |    C    | ... |
-| ???                                               |  ...   |  ...    | ... |
+| Przypadek użycia                                  | Aukcja | Produkt | Kupujący | Sprzedający |
+| ------------------------------------------------- | ------ | ------- | -------- | ----------- |
+| UC1: Wystawienie produktu na aukcję               |    C   |    C    |    -     |      R      |
+| UC2: Złożenie oferty                              |    U   |    R    |    C     |      -      |
+| UC3: Dokonanie płatności za wygrany produkt                       |    R   |    R    |    U     |      R      |
+| UC4: Przekazanie produktu                         |    R   |    U    |    R     |      U      |
