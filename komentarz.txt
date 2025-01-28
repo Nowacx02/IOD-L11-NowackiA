@@ -1,11 +1,12 @@
-zad1: 	czas średni: 	przepustowość:
-pod1:	22984		24,6/min
-pod2:	17733		4,1/sec
-Zamiast wywoływać funkcję averageSpending() przy każdej iteracji ulokowałam ją w zmiennej.
+Zad1:
+Na poczatku:
+Średni czas odpowiedzi: 2347 ms
+Przepustowość: 1.4
+Zmieniłem:
+Zamiast wywoływać metodę averageSpendings() w każdej iteracji, jej wynik został zapisany do zmiennej przed rozpoczęciem pętli, a następnie wykorzystany w obliczeniach. Dzięki temu zredukowano liczbę operacji, co znacząco poprawiło wydajność kodu.
+Po zmianach:
+Średni czas odpowiedzi: 30 ms
+Przepustowość: 1.9
 
-zad2:	śr: 	min:	max:	przep:
-10:	21242	20000	46322	1,8/sec
-20:	19450	5004	20055	1,8/sec
-30:	19440	2006	20055	1,8/sec
-
-Powniino być 20 drukarek. Pomiędzy 10 a 20 jest różnica, ale dalej różnica jest już nieznaczna.
+Z2.
+Średnia przepustowość dla konfiguracji określonej przez analityków wynosi 2.0 operacje na sekundę przy zastosowaniu 10 drukarek. Zalecane jest zwiększenie liczby drukarek do 28, co pozwoli osiągnąć przepustowość na poziomie 5.4 operacji na sekundę, minimalnie przekraczając wymagane 5.5 operacji na sekundę.
